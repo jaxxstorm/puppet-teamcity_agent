@@ -1,0 +1,18 @@
+# /usr/lib/systemd/system/teamcity-agent.service
+[Unit]
+Description=LSB: TeamCity Agent
+After=remote-fs.target
+After=network-online.target
+Wants=network-online.target
+Conflicts=shutdown.target
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=yes
+ExecStart=<%= scope.lookupvar('teamcity_agent::extract_path') %>/BuildAgent/bin/agent.sh start
+ExecStop=<%= scope.lookupvar('teamcity_agent::extract_path') %>/BuildAgent/bin/agent.sh stop

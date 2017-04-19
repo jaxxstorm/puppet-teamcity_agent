@@ -1,0 +1,27 @@
+## TeamCity build agent configuration file
+serverUrl=<%= scope.lookupvar('teamcity_agent::server_scheme') %>://<%= scope.lookupvar('teamcity_agent::server_url') %> 
+name=<%= scope.lookupvar('teamcity_agent::agent_name') %> 
+workDir=../work
+tempDir=../temp
+systemDir=../system
+
+
+#ownAddress=<own IP address or server-accessible domain name>
+ownPort=<%= scope.lookupvar('teamcity_agent::agent_port') %> 
+
+authorizationToken=<%= scope.lookupvar('teamcity_agent::agent_token') %> 
+
+## Setting checkout directory cleanup time, per SCM-1835
+teamcity.agent.build.checkoutDir.expireHours=36
+teamcity.agent.communicationProtocols=polling
+
+######################################
+#   Default Build Properties         #
+######################################
+## All properties starting with "system.name" will be passed to the build script as "name"
+## All properties starting with "env.name" will be set as environment variable "name" for the build process
+## Note that value should be properly escaped. (use "\\" to represent single backslash ("\"))
+## More on file structure: http://java.sun.com/j2se/1.5.0/docs/api/java/util/Properties.html#load(java.io.InputStream)
+
+# Build Script Properties
+#system.exampleProperty=example Value
