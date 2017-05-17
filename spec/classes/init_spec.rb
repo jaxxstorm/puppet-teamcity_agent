@@ -26,6 +26,7 @@ describe 'teamcity_agent' do
     it { should contain_file('/opt/teamcity').with(:ensure => 'directory') }
     it { should contain_file('/opt/teamcity/archives').with(:ensure => 'directory') }
     it { should contain_file('/opt/teamcity').with(:ensure => 'directory') }
+    it { should contain_service('teamcity-agent').with(:ensure => 'running', :enable => true) }
   end
 
   context "When installing via URL with a special archive_path" do
@@ -82,5 +83,16 @@ describe 'teamcity_agent' do
     it { should contain_file('/usr/lib/teamcity/BuildAgent/conf/buildAgent.properties').with_content(/ownPort=8211/)}
     it { should contain_file('/usr/lib/teamcity/BuildAgent/conf/buildAgent.properties').with_content(/authorizationToken=something-else/)}
   end
+
+
+  context "configure service" do
+    let(:params) {{
+      :server_url    => 'something',
+      :agent_token   => 'something-else',
+
+    }}
+  end
+
+
 
 end

@@ -35,7 +35,13 @@ class teamcity_agent (
   $server_scheme  = $teamcity_agent::params::server_scheme,
   $agent_name     = $teamcity_agent::params::agent_name,
   $agent_port     = $teamcity_agent::params::agent_port,
-  $agent_token     = undef,
+  $agent_token    = undef,
+
+  # service related params
+  $manage_service = true,
+  $service_ensure = 'running',
+  $service_enable = true,
+
 ) inherits teamcity_agent::params {
 
   $real_download_url = pick($download_url, "${server_scheme}://${server_url}/update/buildAgent.zip")
@@ -52,7 +58,7 @@ class teamcity_agent (
   anchor { 'teamcity_agent_first':}
   -> class { 'teamcity_agent::install': }
   class { 'teamcity_agent::configure':} ->
-  #class { 'teamcity_agent::service': } ->
+  class { 'teamcity_agent::service': } ->
   anchor { 'teamcity_agent_final': }
 
 
