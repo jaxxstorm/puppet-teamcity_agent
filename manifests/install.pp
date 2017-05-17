@@ -14,7 +14,7 @@ class teamcity_agent::install {
     extract      => true,
     extract_path => $teamcity_agent::extract_path,
     source       => $::teamcity_agent::real_download_url,
-    creates      => "${teamcity_agent::extract_path}/BuildAgent/bin/start.sh"
+    creates      => "${teamcity_agent::extract_path}/BuildAgent/bin/agent.sh"
   }
 
 
