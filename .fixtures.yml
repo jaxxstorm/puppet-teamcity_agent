@@ -7,4 +7,4 @@ fixtures:
       repo: "https://github.com/voxpupuli/puppet-archive.git"
       ref: "v1.1.1"
   symlinks:
-    vault_ssh_helper: "#{source_dir}"
+    teamcity_agent: "#{source_dir}"
