@@ -18,6 +18,7 @@ class teamcity_agent::configure {
     mode     => '0644',
     owner    => 'root',
     group    => 'root',
+    replace  => false,
     content  => template('teamcity_agent/buildAgent.properties.erb'),
     notify   => Service['teamcity-agent']
   }

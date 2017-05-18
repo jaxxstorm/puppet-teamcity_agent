@@ -9,7 +9,8 @@ systemDir=../system
 #ownAddress=<own IP address or server-accessible domain name>
 ownPort=<%= scope.lookupvar('teamcity_agent::agent_port') %> 
 
-authorizationToken=<%= scope.lookupvar('teamcity_agent::agent_token') %> 
+# this is unique per agent, so don't manage it with Puppet
+authorizationToken=
 
 ## Setting checkout directory cleanup time, per SCM-1835
 teamcity.agent.build.checkoutDir.expireHours=36

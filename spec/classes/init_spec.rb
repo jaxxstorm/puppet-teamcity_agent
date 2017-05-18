@@ -20,7 +20,6 @@ describe 'teamcity_agent' do
   context "When installing via URL by default" do
     let(:params) {{
       :server_url => 'server-url',
-      :agent_token => 'test-token',
     }}
     it { should contain_archive('/opt/teamcity/archives/BuildAgent.zip').with(:source => 'http://server-url/update/buildAgent.zip') }
     it { should contain_file('/opt/teamcity').with(:ensure => 'directory') }
@@ -34,7 +33,6 @@ describe 'teamcity_agent' do
       :server_url     => 'server-url',
       :archive_path   => '/usr/share/puppet-archive',
       :server_scheme  => 'https',
-      :agent_token => 'test-token',
     }}
     it { should contain_archive('/usr/share/puppet-archive/BuildAgent.zip').with(:source => 'https://server-url/update/buildAgent.zip') }
     it { should contain_file('/usr/share/puppet-archive').with(:ensure => 'directory') }
@@ -43,7 +41,6 @@ describe 'teamcity_agent' do
   context "When installing via URL by with a custom url" do
     let(:params) {{
       :download_url   => 'http://myurl/BuildAgent.zip',
-      :agent_token => 'test-token',
     }}
     it { should contain_archive('/opt/teamcity/archives/BuildAgent.zip').with(:source => 'http://myurl/BuildAgent.zip') }
   end
@@ -51,7 +48,6 @@ describe 'teamcity_agent' do
   context "service should be installed" do
     let(:params) {{
       :server_url  => 'server-url',
-      :agent_token => 'test-token',
     }}
     it { should contain_file('/lib/systemd/system/teamcity-agent.service').with_content(/ExecStart=\/opt\/teamcity\/BuildAgent\/bin\/agent.sh start/) }
     it { should contain_file('/lib/systemd/system/teamcity-agent.service').that_notifies('Exec[teamcity_agent-systemd-reload]') }
@@ -60,7 +56,6 @@ describe 'teamcity_agent' do
   context "configuration file options" do
     let(:params) {{
       :server_url  => 'server-url:8111',
-      :agent_token => 'test-token',
     }}
     it { should contain_file('/opt/teamcity/BuildAgent/conf/buildAgent.properties').with_content(/serverUrl=http:\/\/server-url:8111/)}
     it { should contain_file('/opt/teamcity/BuildAgent/conf/buildAgent.properties').with_content(/name=example-host/)}
@@ -72,7 +67,6 @@ describe 'teamcity_agent' do
     let(:params) {{
       :server_url   	=> 'something',
 			:server_scheme	=> 'https',
-      :agent_token  	=> 'something-else',
       :agent_name   	=> 'my-agent',
       :agent_port   	=> '8211',
       :extract_path 	=> '/usr/lib/teamcity',
@@ -88,7 +82,6 @@ describe 'teamcity_agent' do
   context "configure service" do
     let(:params) {{
       :server_url    => 'something',
-      :agent_token   => 'something-else',
 
     }}
   end

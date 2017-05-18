@@ -23,10 +23,6 @@
 #
 # [*agent_port*]
 #   The port the agent should listen on
-#
-# [*agent_token*]
-#   The auth token for the teamcity agent when registering
-#   with the server
 class teamcity_agent (
   $archive_path   = $teamcity_agent::params::archive_path,
   $extract_path   = $teamcity_agent::params::extract_path,
@@ -35,7 +31,6 @@ class teamcity_agent (
   $server_scheme  = $teamcity_agent::params::server_scheme,
   $agent_name     = $teamcity_agent::params::agent_name,
   $agent_port     = $teamcity_agent::params::agent_port,
-  $agent_token    = undef,
 
   # service related params
   $manage_service = true,
@@ -49,11 +44,6 @@ class teamcity_agent (
   if ! $download_url and ! $server_url {
     fail('Please specify a location to download teamcity agent from')
   }
-
-  if ! $agent_token {
-    fail('Please specify an authorization token for the agent')
-  }
-
 
   anchor { 'teamcity_agent_first':}
   -> class { 'teamcity_agent::install': }
